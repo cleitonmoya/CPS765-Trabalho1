@@ -1,0 +1,181 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[left=2.5cm,top=3cm,right=2.5cm,bottom=3cm]{geometry}
+
+\usepackage[utf8]{inputenc} 	%codificação de entrada
+\usepackage[T1]{fontenc} 		%codificação de saída
+\usepackage[brazil]{babel}
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{outlines}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{float}
+
+\graphicspath{ {./figuras/} }
+
+\DeclareMathOperator{\sign}{sign}
+\newcommand{\ula}{\textsuperscript{\b{a}} } % "underlined a in superscript mode"
+\newcommand{\ulo}{\textsuperscript{\b{o}} }
+
+\author{\large Cleiton Moya de Almeida}
+\title{Relatório do Trabalho \#1}
+\date{02/01/2020}
+
+\begin{document}
+	
+	\begin{titlepage}
+	
+		\begin{center}
+			\Large{Aluno: Cleiton Moya de Almeida}
+			\vspace{10cm}
+			
+			\Huge{Relatório do Trabalho \#1} \\
+			\Large{CPS765 - Redes Complexas}	
+		\end{center}
+		\vspace{5cm}
+		\begin{flushleft}\large{
+			Professor: \\
+			Daniel R. Figueiredo \\
+		}
+		\end{flushleft}
+			\vspace{3cm}
+		\begin{center}
+			Rio de Janeiro, 02 de novembro de 2020
+		\end{center}
+	
+	\end{titlepage}
+	
+	\pagebreak
+	
+	\section{Objetivo}
+	
+	O objetivo deste trabalho é a realizar a caracterização de 4 redes reais. O objetivo é explorar e se familiarizar com um pacote computacional para análise de redes.
+	
+	\section{Redes e e pacote utilizado}
+	
+	Analisamos neste trabalho 4 redes:
+	\begin{enumerate}
+		\item \textbf{Zachary's karate club}\footnote{\url{http://www-personal.umich.edu/~mejn/netdata}}: Rede social de amizade entre 34 membros de um clube de karatê em uma universidade americana nos anos 70. Dois membros são conectados se foram observados algum evento externo ao clube. Destacam-se dois membros bastante influentes: o gestor do clube e o instrutor.
+		
+		\item \textbf{Powergrid}\footnote{\url{http://networksciencebook.com/translations/en/resources/data.html}}: Representação da rede elérica da Western States dos EUA. Cada vértice é uma unidade planta (unidade geradora, transformadora ou consumidora), e dois vértices são conectados se existe conexão física via cabos entre as plantas.
+		
+		\item \textbf{Phone Calls}\footnotemark[2]: Vértices representam uma amostra de usuários de telefone celular e são conectados se houveram ligações entre os mesmos durante um período obseravado.
+
+		\item \textbf{Protein}\footnotemark[2]: Rede representando uma interação proteína-proteína no fermento. Cada vértice represetna uma proteína,  e elas estão conectadas se há interação física com a célula.
+
+	\end{enumerate}
+	
+	As características básicas destas redes são mostradas na tabela \ref{tab:basico}.
+	
+	\begin{table}[H]
+		\caption{Características básicas}
+		\label{tab:basico}
+		\centering
+		\begin{tabular}{l|c|c|c|c}
+			& \textbf{Karate} & \textbf{PhoneCall} & \textbf{PowerGrid} & \textbf{Protein}   \\  \hline
+			Vértices     & 34              &                    & 4.941              & 2.018              \\ \hline
+			Arestas      & 78              &                    & 6.594              & 2.930              \\ \hline
+			Direcionada? & Não             &                    & Não                & Não               \\ \hline
+			Conexa?      & Sim             &                    & Sim                & Não               
+		\end{tabular}
+	\end{table}
+
+	Para a caracterização das redes, utilizamos a biblioteca \texttt{\textbf{networkx}}\footnote{\url{https://networkx.org/}}.
+
+	\section{Métricas utilizadas}
+	
+	Para cada rede, realizamos a caracterização através das seguintes métricas:
+	
+	\begin{outline}
+	
+	\1 Grau;
+	\1 Distância;
+	\1 Tamanho das componentes conexas;
+	\1 Clusterização
+		\2 Local;
+		\2 Global;
+	\1 Centralidade
+		\2 Centralidade de grau;
+		\2 \textit{Betweeness};
+		\2 Closeness;
+		\2 Centralidade de auto-vetor;
+		\2 Page-rank;
+	\1 Similaridade
+		\2 Jaccard;
+		\2 Adamic/Adar.
+	
+	\end{outline}
+
+	
+	\section{Resultados}
+	
+	A caracterização de cada rede é mostrada nas tabelas \ref{tab:karete}, \ref{tab:powergrid}.
+	
+	\begin{table}[H]
+		\caption{Métricas - Karate}
+		\label{tab:karete}
+		\centering
+		\begin{tabular}{l|c|c|c|c|c|c}
+			& \textbf{Nom.} & \textbf{Máx.} & \textbf{Mín.} & \textbf{Média} & \textbf{Mediana} & \textbf{Desv. Pad.} \\ \hline
+			Grau              & -                                 & 17            & 1             & 4,6             & 3                & 3,8                \\ \hline
+			Distância         & -                                 & 5             & 1             & 2,4             & 2                & 0,9                \\ \hline
+			Tam. comp. conex.  & 34                                 & -            & -           & -              & -               & 0                  \\ \hline
+			Clust. local      & -                                 & 1             & 0             & 0,57            & 0,5              & 0,34               \\ \hline
+			Clust. global     & 0,25                              & -             & -             & -               & -                & -                  \\ \hline
+			Centr. de grau    & -                                 & 0,51          & 0,03          & 0,14            & 0,09             & 0,12               \\ \hline
+			Betweeness        & -                                 & 0,43          & 0             & 0,04            & 0,0025           & 0,09               \\ \hline
+			Closeness         & -                                 & 0,57          & 0,28          & 0,43            & 0,38             & 0,07               \\ \hline
+			Centr. auto-vetor & -                                 & 0,37          & 0,02          & 0,14            & 0,10             & 0,09               \\ \hline
+			Page Rank         & -                                 & 0,10          & 0,0085        & 0,029           & 0,021            & 0,02               \\ \hline
+			Jaccard           & -                                 & 1             & 0             & 0,15            & 0,09             & 0,20               \\ \hline
+			Adamic/Adar       & -                                 & 4,71          & 0             & 0,35            & 0,35             & 0,46              
+		\end{tabular}
+	\end{table}
+		
+	\begin{table}[H]
+		\caption{Métricas - Powergrid}
+		\label{tab:powergrid}
+		\centering
+		\begin{tabular}{l|c|c|c|c|c|c}
+			& \textbf{Nom.} & \textbf{Máx.} & \textbf{Mín.} & \textbf{Média} & \textbf{Mediana} & \textbf{Desv. Pad.} \\\hline
+			Grau              & -                                 & 19            & 1             & 2,7            & 2                & 1,8                \\ \hline
+			Distância         & -                                 & 46            & 1             & 19             & 19               & 6,5                \\ \hline
+			Tam. comp. cox.   & 4941                              & -             & -             & -              & -                & -                  \\ \hline
+			Clust. local      & -                                 & 1             & 0             & 0,08           & 0                & 0,22               \\ \hline
+			Clust. global     & 0,10                              & -             & -             & -              & -                & -                  \\ \hline
+			Centr. de grau    & -                                 & 0,004         & 0,0002        & 0,0005         & 0,0004           & 0,0003             \\ \hline
+			Betweeness        & -                                 & 0,28          & 0             & 0,003          & 0,0004           & 0,017              \\ \hline
+			Closeness         & -                                 & 0,08          & 0,03          & 0,05           & 0,05             & 0,007              \\ \hline
+			Centr. auto-vetor & -                                 & 0,28          & e-13          & 0,001          & e-09             & 0,014              \\\hline
+			Page Rank         & -                                 & 0,001         & 5e-5          & 0,0002         & 0,0002           & 0,0001             \\\hline
+			Jaccard           & -                                 & 1             & 0             & 0,0003         & 0                & 0,010              \\\hline
+			Adamic/Adar       & -                                 & 3,8           & 0             & 0,001          & 0                & 0,03              
+		\end{tabular}
+	\end{table}
+	
+	
+	
+	\section{Comentários}
+	
+	\section{Código-fonte}
+	
+	Os arquivos utilizados para a implementação deste trabalho encontram-se no seguinte link:
+	\begin{itemize}
+		\item \url{github}
+	\end{itemize}
+	
+	Realizamos a análise de cada rede em um \textit{notebook} (\textit{Jupyter Notebook}) separado:
+	
+	\begin{itemize}
+		\item \texttt{karate.ipynb}
+		\item \texttt{phonecall.ipynb}
+		\item \texttt{powergrid.ipynb}
+		\item \texttt{protein.ipynb}
+	\end{itemize} 
+	
+	
+	
+\end{document}

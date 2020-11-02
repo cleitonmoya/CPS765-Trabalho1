@@ -1,0 +1,4 @@
+networks/networks_barabasi/actor.edgelist.txt
+networks/networks_barabasi/citation.edgelist.txt
+networks/networks_barabasi/internet.edgelist.txt
+networks/networks_barabasi/www.edgelist.txt
